@@ -45,6 +45,13 @@
       $sql = "SELECT * FROM company NATURAL JOIN apply WHERE sid=$user_id";
       mysqli_select_db($conn, 'mehmet_sahin');
       $retval = mysqli_query(  $conn, $sql );
+      $count = mysqli_num_rows($retval);
+      if ($count == 3){
+          $_SESSION["full"] = 1;
+      }
+      else{
+          $_SESSION["full"] = 0;
+      }
       echo "<table align=\"center\" border=\"1\" style=\"width:60%\">";
       $i = 0;
       while($row = mysqli_fetch_array($retval)){
@@ -67,7 +74,15 @@
       echo "</table>";
       echo "</br>";
       echo "<table align=\"center\" style=\"width:60%\">";
-      echo "<tr align=\"center\"><td><button id=\"applyButton\" class=\"btn btn-lg btn-primary btn-block\"> <h4> Apply for Internship </h4></button></td></tr>";
+      echo "<form action=\"addInternship.php\" method=\"post\">
+            <tr align=\"center\">
+                <td>
+                    <button id=\"applyButton\" class=\"btn btn-lg btn-primary btn-block\">
+                        <h4> Apply for Internship </h4>
+                    </button>
+                </td>
+            </tr>
+            </form>";
       echo "</table>";
 
     ?>

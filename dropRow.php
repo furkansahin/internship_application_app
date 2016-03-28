@@ -1,6 +1,5 @@
 <?php
     session_start();
-    echo "here";
     $row_num = $_POST['rowId'];
     $user_id = $_SESSION["sid"];
     $servername = "localhost";
@@ -24,6 +23,9 @@
     $sql = "DELETE FROM apply WHERE sid=".$user_id." AND cid= '".$row['cid']."'";
     if(!mysqli_query($conn, $sql)){
         echo "delete could not be processed";
+    }
+    else{
+        $_SESSION["full"] = 0;
     }
     header("Location:welcome.php");
     exit();
