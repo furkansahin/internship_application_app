@@ -16,10 +16,18 @@
     <![endif]-->
   </head>
   <body>
-      <h2 align = "center"> Internships <h2/>
-          <form action="logout.php">
-              <button align = "right" class="btn btn-lg btn-primary btn-block">Logout</button>
-          <form/>
+      <table style="width:100%;">
+          <tr>
+              <td style="width:90%;">
+                  <h2 align = "center"> Internships </h2>
+              </td>
+              <td style="width:10%;">
+                  <form action="logout.php">
+                      <button align = "right" class="btn btn-lg btn-primary btn-block">Logout</button>
+                  </form>
+              </td>
+          </tr>
+      </table>
     <?php
       session_start();
       $user_id = $_SESSION["sid"];
@@ -37,18 +45,31 @@
       $sql = "SELECT * FROM company NATURAL JOIN apply WHERE sid=$user_id";
       mysqli_select_db($conn, 'mehmet_sahin');
       $retval = mysqli_query(  $conn, $sql );
-      echo "<table border=\"1\" style=\"width:100%\">";
+      echo "<table align=\"center\" border=\"1\" style=\"width:60%\">";
       $i = 0;
       while($row = mysqli_fetch_array($retval)){
-          echo "<tr>";
-            echo "<td>".$row["cid"]."</td>";
-            echo "<td>".$row["cname"]."</td>";
-            echo "<td>".$row["quota"]."</td>";
-            echo "<td><button id="."\"cancel".$i."\" class=\"btn btn-lg btn-primary btn-block\"> Cancel </button></td>";
-          echo "</tr>";
+            echo "<tr align=\"center\">";
+            echo "<td style=\"width:10%\"><h4>".$row["cid"]."</h4></td>";
+            echo "<td><h4>".$row["cname"]."</h4></td>";
+            echo "<td style=\"width:10%\"><h4>".$row["quota"]."</h4></td>";
+            echo "<form action=\"dropRow.php\" method=\"post\">
+                    <input name=\"rowId\" type=\"hidden\" value = \"".$i."\">
+                    <td style=\"width:5%\">
+                        <button name="."\"cancel\"
+                        class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">
+                            <h4>Cancel </h4>
+                        </button>
+                    </td>
+                </form>
+            </tr>";
           $i++;
       }
       echo "</table>";
+      echo "</br>";
+      echo "<table align=\"center\" style=\"width:60%\">";
+      echo "<tr align=\"center\"><td><button id=\"applyButton\" class=\"btn btn-lg btn-primary btn-block\"> <h4> Apply for Internship </h4></button></td></tr>";
+      echo "</table>";
+
     ?>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
