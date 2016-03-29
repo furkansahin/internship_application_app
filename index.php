@@ -16,14 +16,18 @@
     <![endif]-->
   </head>
   <body>
-      <div class="container">
+      <div style="width: 350px;" class="container">
         <form class="form-signin" action="index.php" method="post">
-          <h2 class="form-signin-heading">Please login</h2>
+          <h2 align="center" class="form-signin-heading">Please login</h2>
+          <br/>
           <label for="userName" class="sr-only">User Name</label>
           <input type="text" id="userName" name="userName" class="form-control" placeholder="User Name" required autofocus>
+          <br/>
           <label for="password" class="sr-only">Password</label>
           <input type="password" id="password"  name="password" class="form-control" placeholder="Password" required>
           <br/>
+          <br/>
+
           <button id= "loginButton" class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
         </form>
       </div>
@@ -37,7 +41,8 @@
 
     $user = $_POST['userName'];
     $pass = $_POST['password'];
-    if ($user){
+    if ($user)
+    {
       $servername = "localhost";
       $username = "mehmet.sahin";
       $password = "lyd7i7xk";
@@ -46,7 +51,8 @@
       $conn = new mysqli($servername, $username, $password);
 
       // Check connection
-      if ($conn->connect_error) {
+      if ($conn->connect_error)
+      {
           die("Connection failed: " . $conn->connect_error);
       }
 
@@ -55,10 +61,12 @@
       $retval = mysqli_query(  $conn, $sql );
       $count = mysqli_fetch_array($retval, MYSQLI_NUM);
 
-      if (!$count[0]){
+      if (!$count[0])
+      {
         echo "<script type='text/jscript'>alert('Email or Pass is not matching.')</script>";
       }
-      else{
+      else
+      {
         session_start();
         $_SESSION["sid"] = $pass;
         header("Location:welcome.php");

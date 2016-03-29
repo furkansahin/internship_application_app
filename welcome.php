@@ -38,7 +38,8 @@
       $conn = new mysqli($servername, $username, $password);
 
       // Check connection
-      if ($conn->connect_error) {
+      if ($conn->connect_error)
+      {
           die("Connection failed: " . $conn->connect_error);
       }
 
@@ -46,15 +47,12 @@
       mysqli_select_db($conn, 'mehmet_sahin');
       $retval = mysqli_query(  $conn, $sql );
       $count = mysqli_num_rows($retval);
-      if ($count == 3){
-          $_SESSION["full"] = 1;
-      }
-      else{
-          $_SESSION["full"] = 0;
-      }
+      $_SESSION["int_num"] = $count;
+
       echo "<table align=\"center\" border=\"1\" style=\"width:60%\">";
       $i = 0;
-      while($row = mysqli_fetch_array($retval)){
+      while($row = mysqli_fetch_array($retval))
+      {
             echo "<tr align=\"center\">";
             echo "<td style=\"width:10%\"><h4>".$row["cid"]."</h4></td>";
             echo "<td><h4>".$row["cname"]."</h4></td>";
@@ -64,7 +62,7 @@
                     <td style=\"width:5%\">
                         <button name="."\"cancel\"
                         class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">
-                            <h4>Cancel </h4>
+                            <h4>Cancel</h4>
                         </button>
                     </td>
                 </form>
@@ -77,7 +75,9 @@
       echo "<form action=\"addInternship.php\" method=\"post\">
             <tr align=\"center\">
                 <td>
-                    <button id=\"applyButton\" class=\"btn btn-lg btn-primary btn-block\">
+                    <button id=\"applyButton\" class=\"btn btn-lg btn-primary btn-block\"";
+                    if ($count == 3) echo " disabled";
+                    echo ">
                         <h4> Apply for Internship </h4>
                     </button>
                 </td>

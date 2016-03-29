@@ -1,6 +1,6 @@
 <?php
     session_start();
-    $row_num = $_POST['rowId'];
+    $row_num = $_POST["rowId"];
     $user_id = $_SESSION["sid"];
     $servername = "localhost";
     $username = "mehmet.sahin";
@@ -9,7 +9,8 @@
     $conn = new mysqli($servername, $username, $password);
 
     // Check connection
-    if ($conn->connect_error) {
+    if ($conn->connect_error)
+    {
         die("Connection failed: " . $conn->connect_error);
     }
 
@@ -17,14 +18,17 @@
     mysqli_select_db($conn, 'mehmet_sahin');
     $retval = mysqli_query(  $conn, $sql );
     $row = mysqli_fetch_array($retval);
-    for($i=0; i<$row_num-1;$i++){
+    for($i=0; $i<$row_num;$i++)
+    {
         $row = mysqli_fetch_array($retval);
     }
     $sql = "DELETE FROM apply WHERE sid=".$user_id." AND cid= '".$row['cid']."'";
-    if(!mysqli_query($conn, $sql)){
+    if(!mysqli_query($conn, $sql))
+    {
         echo "delete could not be processed";
     }
-    else{
+    else
+    {
         $_SESSION["full"] = 0;
     }
     header("Location:welcome.php");
